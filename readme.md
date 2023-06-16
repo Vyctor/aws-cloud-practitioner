@@ -1,8 +1,62 @@
+
 # AWS
+
+- [AWS](#aws)
+  - [Computação na nuvem](#computação-na-nuvem)
+    - [Amazon EC2](#amazon-ec2)
+    - [Tipos de Instâncias do Amazon EC2](#tipos-de-instâncias-do-amazon-ec2)
+      - [Uso Geral](#uso-geral)
+      - [Otimizadas para computação](#otimizadas-para-computação)
+      - [Otimizadas para memória](#otimizadas-para-memória)
+      - [Otimizadas para Computação acelerada](#otimizadas-para-computação-acelerada)
+      - [Otimizadas para armazenamento](#otimizadas-para-armazenamento)
+    - [Definição de preços do Amazon EC2](#definição-de-preços-do-amazon-ec2)
+      - [Instâncias sob demanda](#instâncias-sob-demanda)
+      - [Saving plans](#saving-plans)
+      - [Instâncias reservadas](#instâncias-reservadas)
+      - [Instâncias spot](#instâncias-spot)
+      - [Instâncias dedicadas](#instâncias-dedicadas)
+    - [Escalabilidade do Amazon EC2](#escalabilidade-do-amazon-ec2)
+      - [Amazon EC2 Auto Scaling](#amazon-ec2-auto-scaling)
+      - [Exemplo Auto Scaling](#exemplo-auto-scaling)
+    - [Direcionamento de tráfego com o Elastic Load Balancing](#direcionamento-de-tráfego-com-o-elastic-load-balancing)
+      - [Exemplo Elastic Load Balancing](#exemplo-elastic-load-balancing)
+        - [Período de baixa demanda](#período-de-baixa-demanda)
+        - [Período de alta demanda](#período-de-alta-demanda)
+    - [Sistema de mensagens e enfileiramento](#sistema-de-mensagens-e-enfileiramento)
+      - [Amazon Simple Notification Service (Amazon SNS)](#amazon-simple-notification-service-amazon-sns)
+      - [Amazon Simple Queue Service (Amazon SQS)](#amazon-simple-queue-service-amazon-sqs)
+    - [Outros serviços de computação](#outros-serviços-de-computação)
+      - [Computação sem servidor - serverless](#computação-sem-servidor---serverless)
+      - [AWS Lambda](#aws-lambda)
+      - [Contêineres](#contêineres)
+      - [Amazon Elastic Container Service (Amazon ECS)](#amazon-elastic-container-service-amazon-ecs)
+      - [Amazon Elastic Kubernetes Service (Amazon EKS)](#amazon-elastic-kubernetes-service-amazon-eks)
+      - [Amazon Fargate](#amazon-fargate)
+  - [Infraestrutura Global e Confiabilidade](#infraestrutura-global-e-confiabilidade)
+    - [Seleção de região](#seleção-de-região)
+      - [Conformidade com governança de dados e requisitos legais](#conformidade-com-governança-de-dados-e-requisitos-legais)
+      - [Proximidade dos usuários finais](#proximidade-dos-usuários-finais)
+      - [Serviços disponíveis na Região](#serviços-disponíveis-na-região)
+      - [Preços](#preços)
+    - [Zonas de disponibilidade](#zonas-de-disponibilidade)
+    - [Pontos de presença](#pontos-de-presença)
+    - [AWS Elastic Beanstalk](#aws-elastic-beanstalk)
+    - [AWS CloudFormation](#aws-cloudformation)
+  - [Redes](#redes)
+  - [Armazenamento e banco de dados](#armazenamento-e-banco-de-dados)
+  - [Segurança](#segurança)
+  - [Monitoramento e análise](#monitoramento-e-análise)
+  - [Definição de preços e suporte](#definição-de-preços-e-suporte)
+  - [Migração e inovação](#migração-e-inovação)
+  - [A jornada para a nuvem](#a-jornada-para-a-nuvem)
+  - [Noções básicas do AWS Certified Cloud Practitioner](#noções-básicas-do-aws-certified-cloud-practitioner)
 
 A AWS é uma plataforma de serviços em nuvem que oferece poder computacional, armazenamento de banco de dados, entrega de conteúdo e outras funcionalidades para ajudar as empresas a expandir e crescer.
 
-## Amazon EC2
+## Computação na nuvem
+
+### Amazon EC2
 
 O Amazon Elastic Compute Cloud (Amazon EC2) fornece capacidade computacional segura e redimensionável na nuvem como instâncias do Amazon EC2.
 
@@ -156,3 +210,151 @@ Se apenas algumas caixas registradoras estiverem abertas, isso corresponde à de
 Ao longo do dia, à medida que o número de clientes aumenta, a cafeteria abre mais caixas registradoras para acomodá-los. No diagrama, o grupo do Auto Scaling representa isso.
 
 Além disso, um funcionário da cafeteria direciona os clientes para a caixa registradora mais adequada para que o número de solicitações possa ser distribuído uniformemente entre as caixas abertas. Você pode pensar nesse funcionário da cafeteria como um balanceador de carga.
+
+### Sistema de mensagens e enfileiramento
+
+Os aplicativos são formados por vários componentes. Os componentes se comunicam entre si para transmitir dados, atender solicitações e manter o aplicativo em execução.
+
+Suponha que você tenha um aplicativo com componentes com acoplamento forte. Esses componentes podem ser bancos de dados, servidores, interface do usuário, lógica de negócios e assim por diante. Esse tipo de arquitetura pode ser considerado um aplicativo monolítico.
+
+Nessa abordagem à arquitetura do aplicativo, se um único componente falhar, outros componentes falharão e possivelmente todo o aplicativo.
+
+**Para ajudar a manter a disponibilidade do aplicativo quando um único componente falha, você pode projetar esse aplicativo por uma abordagem de microsserviços.**
+
+Em uma abordagem de microsserviços, os componentes do aplicativo têm um acoplamento fraco. Neste caso, se um único componente falhar, os outros componentes continuarão funcionando porque estarão em comunicação uns com os outros. O acoplamento fraco evita a falha completa do aplicativo.
+
+Ao projetar aplicativos na AWS, você pode adotar uma abordagem de microsserviços com serviços e componentes que cumprem funções diferentes. Dois serviços facilitam a integração de aplicativos: Amazon Simple Notification Service (Amazon SNS) e Amazon Simple Queue Service (Amazon SQS).
+
+#### Amazon Simple Notification Service (Amazon SNS)
+
+O Amazon Simple Notification Service (Amazon SNS) é um serviço de publicação/assinatura. Usando tópicos do Amazon SNS, um editor publica mensagens para assinantes. Isso se parece com a cafeteria: o operador de caixa entrega os pedidos ao barista que, por sua vez, prepara as bebidas.
+
+No Amazon SNS, os assinantes podem ser servidores web, endereços de e-mail, funções do AWS Lambda ou várias outras opções.
+
+#### Amazon Simple Queue Service (Amazon SQS)
+
+O Amazon Simple Queue Service (Amazon SQS) é um serviço de enfileiramento de mensagens.
+
+Use o Amazon SQS para enviar, armazenar e receber mensagens entre componentes de software, sem perder mensagens ou precisar que outros serviços estejam disponíveis. No Amazon SQS, um aplicativo envia mensagens para uma fila. Um usuário ou serviço recupera uma mensagem da fila, processa-a e a exclui da fila.
+
+### Outros serviços de computação
+
+#### Computação sem servidor - serverless
+
+No início deste módulo, você conheceu o Amazon EC2, um serviço que permite executar servidores virtuais na nuvem. Se você quiser executar aplicativos no Amazon EC2, faça o seguinte:
+
+1. Provisione as instâncias (servidores virtuais).
+2. Faça upload do código
+3. Continue gerenciando as instâncias enquanto o aplicativo está em execução.
+
+O termo “sem servidor”, ou serverless, significa que o código é executado em servidores, sem que você precise provisionar ou gerenciar esses servidores. Com a computação sem servidor, você pode se concentrar na inovação de novos produtos e recursos em vez de manter servidores.
+
+Outro benefício da computação sem servidor é a flexibilidade de dimensionar aplicativos sem servidor automaticamente. A computação sem servidor pode ajustar a capacidade de aplicativos modificando as unidades de consumo, como taxa de transferência e memória.
+
+Um serviço AWS para computação sem servidor é o AWS Lambda.
+
+#### AWS Lambda
+
+O AWS Lambda é um serviço que permite a execução de códigos sem a necessidade de provisionar ou gerenciar servidores.
+
+Ao usar o AWS Lambda, você paga apenas pelo tempo de computação que consumir. As cobranças se aplicam ao tempo em que o código fica em execução. Você pode executar códigos para praticamente qualquer tipo de aplicativo ou serviço de back-end sem a necessidade de qualquer gerenciamento.
+
+Por exemplo, uma função simples do Lambda é o redimensionamento automático de imagens com o upload feito na nuvem AWS. Nesse caso, a função é acionada ao fazer upload de uma nova imagem.
+
+#### Contêineres
+
+Os contêineres são uma maneira comum de empacotar códigos, configurações e dependências do aplicativo em um único objeto. Você também pode usar contêineres para processos e fluxos de trabalho nos quais há requisitos essenciais de segurança, confiabilidade e escalabilidade.
+
+#### Amazon Elastic Container Service (Amazon ECS)
+
+O Amazon Elastic Container Service (Amazon ECS) é um sistema de gerenciamento de contêineres altamente dimensionável e de alto desempenho que permite executar e dimensionar aplicativos em contêineres na AWS.
+
+O Amazon ECS é compatível com contêineres Docker. O Docker é uma plataforma de software que permite criar, testar e implantar aplicativos rapidamente. A AWS é compatível com c Docker Community Edition de código aberto e do Docker Enterprise Edition baseado em assinatura. Com o Amazon ECS, você pode usar chamadas de API para iniciar e interromper aplicativos ativados pelo Docke
+
+#### Amazon Elastic Kubernetes Service (Amazon EKS)
+
+O Amazon Elastic Kubernetes Service (Amazon EKS) é um serviço totalmente gerenciado que você pode usar para executar o Kubernetes na AWS.
+
+O Kubernetes é um software de código aberto que permite implantar e gerenciar aplicativos em contêineres em grande escala. Uma grande comunidade de voluntários mantém o Kubernetes, e a AWS trabalha ativamente em conjunto com essa comunidade Kubernetes. Conforme novos recursos e funcionalidades são lançados para aplicativos Kubernetes, você pode facilmente aplicar essas atualizações aos aplicativos gerenciados pelo Amazon EKS.
+
+#### Amazon Fargate
+
+O AWS Fargate é um mecanismo de computação sem servidor para contêineres. Ele funciona com o Amazon ECS e o Amazon EKS.
+
+Com o AWS Fargate, você não precisa provisionar ou gerenciar servidores. O AWS Fargate gerencia sua infraestrutura de servidor para você. Você pode se concentrar em inovar e desenvolver seus aplicativos, pagando apenas pelos recursos necessários para executar os contêineres.
+
+## Infraestrutura Global e Confiabilidade
+
+Neste módulo, você aprenderá a:
+
+- Resumir os benefícios da infraestrutura global da AWS.
+- Descrever o conceito básico de Zonas de Disponibilidade.
+- Descrever os benefícios do Amazon CloudFront e dos locais de borda.
+- Comparar métodos diferentes de provisionamento de serviços AWS.
+
+### Seleção de região
+
+Ao determinar a Região certa para seus serviços, dados e aplicativos, considere os quatro fatores de negócios a seguir.
+
+#### Conformidade com governança de dados e requisitos legais
+
+Dependendo da sua empresa e localização, talvez seja necessário executar seus dados em áreas específicas. Por exemplo, se sua empresa exige que todos os dados residam dentro dos limites do Reino Unido, você deve escolher a Região Londres.
+
+Nem todas as empresas têm regulamentações de dados específicas para a localização, portanto, você pode precisar se concentrar nos outros três fatores.
+
+#### Proximidade dos usuários finais
+
+A seleção de uma Região próxima de seus clientes ajudará você a obter o conteúdo com mais rapidez. Por exemplo, sua empresa está sediada em Washington, DC, e muitos de seus clientes residem em Singapura. Você pode considerar executar sua infraestrutura na Região Norte da Virgínia por estar perto da sede da empresa e executar os aplicativos a partir da Região Singapura.
+
+#### Serviços disponíveis na Região
+
+Às vezes, a Região mais próxima pode não ter todos os recursos que você deseja oferecer aos clientes. A AWS inova frequentemente ao criar novos serviços e expandir recursos em serviços existentes. No entanto, disponibilizar novos serviços em todo o mundo às vezes exige que a AWS desenvolva o hardware físico de cada Região por vez.
+
+Suponha que seus desenvolvedores queiram criar um aplicativo que use o Amazon Braket (plataforma de computação quântica da AWS). Neste curso, o Amazon Braket ainda não está disponível em todas as Regiões AWS em todo o mundo, por isso, os desenvolvedores precisariam executá-lo em uma das Regiões que já o oferece.
+
+#### Preços
+
+Suponha que você pretenda executar aplicativos nos Estados Unidos e no Brasil. Com a estrutura tributária do Brasil, pode custar 50% mais caro executar a mesma carga de trabalho na Região São Paulo em comparação com a Região Oregon. Você aprenderá com detalhes que vários fatores determinam o preço, mas, por enquanto, saiba que o custo dos serviços pode variar entre as regiões.
+
+### Zonas de disponibilidade
+
+Uma Zona de Disponibilidade é um único data center ou um grupo de data centers em uma Região. As Zonas de Disponibilidade estão localizadas a dezenas de quilômetros de distância umas das outras. A proximidade é suficiente para haver baixa latência (tempo entre o momento em que o conteúdo foi solicitado e recebido) entre as Zonas de Disponibilidade. No entanto, se ocorrer um desastre em uma parte da Região, há distância suficiente para reduzir a chance de que várias Zonas de Disponibilidade sejam afetadas.
+
+### Pontos de presença
+
+Os pontos de presença são locais físicos onde a AWS tem infraestrutura para fornecer serviços de rede de baixa latência. Os pontos de presença são usados pelo Amazon CloudFront para fornecer conteúdo aos usuários finais com mais rapidez.
+
+### AWS Elastic Beanstalk
+
+O AWS Elastic Beanstalk é um serviço que gerencia a infraestrutura para você. Ele provisiona os recursos necessários para executar seu aplicativo e dimensiona automaticamente esses recursos para atender à demanda. Você carrega seu código e o Elastic Beanstalk cuida do resto.
+
+Com o AWS Elastic Beanstalk, você fornece definições de código e configuração, e o Elastic Beanstalk implanta os recursos necessários para executar as seguintes tarefas:
+
+- Ajustar capacidade
+- Balancear carga
+- Dimensionar de forma automática
+- Monitorar a integridade do aplicativo
+
+### AWS CloudFormation
+
+O AWS CloudFormation é um serviço que permite provisionar recursos da AWS usando modelos. Os modelos são arquivos de texto simples que descrevem os recursos e suas dependências. Você pode usar o AWS CloudFormation para criar, atualizar e excluir recursos da AWS em uma única operação, conhecida como pilha.
+
+Com o AWS CloudFormation, você pode considerar sua infraestrutura como código. Isso significa que você pode criar um ambiente escrevendo linhas de código em vez de usar o AWS Management Console para provisionar recursos individualmente.
+
+O AWS CloudFormation provisiona os recursos de maneira segura e repetível, permitindo que você crie frequentemente a infraestrutura e os aplicativos sem precisar executar ações manuais ou criar scripts personalizados. Ele determina quais são as operações mais adequadas para gerenciar sua pilha e reverte as alterações automaticamente se detectar erros.
+
+## Redes
+
+## Armazenamento e banco de dados
+
+## Segurança
+
+## Monitoramento e análise
+
+## Definição de preços e suporte
+
+## Migração e inovação
+
+## A jornada para a nuvem
+
+## Noções básicas do AWS Certified Cloud Practitioner
