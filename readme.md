@@ -44,13 +44,19 @@
     - [AWS Elastic Beanstalk](#aws-elastic-beanstalk)
     - [AWS CloudFormation](#aws-cloudformation)
   - [Redes](#redes)
-  - [Armazenamento e banco de dados](#armazenamento-e-banco-de-dados)
-  - [Segurança](#segurança)
-  - [Monitoramento e análise](#monitoramento-e-análise)
-  - [Definição de preços e suporte](#definição-de-preços-e-suporte)
-  - [Migração e inovação](#migração-e-inovação)
-  - [A jornada para a nuvem](#a-jornada-para-a-nuvem)
-  - [Noções básicas do AWS Certified Cloud Practitioner](#noções-básicas-do-aws-certified-cloud-practitioner)
+    - [Amazon Virtual Private Cloud (Amazon VPC)](#amazon-virtual-private-cloud-amazon-vpc)
+    - [Gateway da internet](#gateway-da-internet)
+    - [E se você tiver uma VPC apenas com recursos privados?](#e-se-você-tiver-uma-vpc-apenas-com-recursos-privados)
+    - [AWS Direct Connect](#aws-direct-connect)
+    - [Sub-redes e listas de controle de acesso à rede](#sub-redes-e-listas-de-controle-de-acesso-à-rede)
+    - [Sub-redes](#sub-redes)
+    - [Tráfego de rede em uma VPC](#tráfego-de-rede-em-uma-vpc)
+    - [Lista de controle de acesso (ACL) de rede](#lista-de-controle-de-acesso-acl-de-rede)
+    - [Filtragem de pacotes stateless](#filtragem-de-pacotes-stateless)
+    - [Grupos de segurança](#grupos-de-segurança)
+    - [Filtragem de pacotes stateful](#filtragem-de-pacotes-stateful)
+    - [Domain Name System (DNS)](#domain-name-system-dns)
+    - [Amazon Route 53](#amazon-route-53)
 
 A AWS é uma plataforma de serviços em nuvem que oferece poder computacional, armazenamento de banco de dados, entrega de conteúdo e outras funcionalidades para ajudar as empresas a expandir e crescer.
 
@@ -345,16 +351,144 @@ O AWS CloudFormation provisiona os recursos de maneira segura e repetível, perm
 
 ## Redes
 
-## Armazenamento e banco de dados
+Neste módulo, você aprenderá a:
 
-## Segurança
+- Descrever os conceitos básicos de redes.
+- Descrever a diferença entre recursos de redes públicas e privadas.
+- Explicar como um gateway privado virtual funciona usando um cenário real.
+- Explicar como uma rede privada virtual (VPN) funciona usando um cenário real.
+- Descrever o benefício do AWS Direct Connect.
+- Descrever o benefício das implantações híbridas.
+- Descrever as camadas de segurança usadas em uma estratégia de TI.
+- Descrever os serviços que os clientes usam para interagir com a rede global da AWS.
 
-## Monitoramento e análise
+### Amazon Virtual Private Cloud (Amazon VPC)
 
-## Definição de preços e suporte
+Imagine os milhões de clientes que usam os serviços AWS. Imagine também os milhões de recursos que esses clientes criaram, como as instâncias do Amazon EC2. Sem limites para todos esses recursos, o tráfego de rede fluiria entre eles sem restrições.
 
-## Migração e inovação
+Um serviço de rede que você pode usar para definir limites para seus recursos AWS é o Amazon Virtual Private Cloud (Amazon VPC).
 
-## A jornada para a nuvem
+O Amazon VPC permite que você provisione uma seção isolada da nuvem AWS. Nessa seção isolada, você pode executar os recursos em uma rede virtual que definir. Em uma Virtual Private Cloud (VPC), você pode organizar seus recursos em sub-redes. Uma sub-rede é uma seção de uma VPC que pode conter recursos como instâncias do Amazon EC2.
 
-## Noções básicas do AWS Certified Cloud Practitioner
+### Gateway da internet
+
+Para permitir que o tráfego público da internet acesse sua VPC, é preciso anexar um gateway da internet à VPC.
+Um gateway da internet é uma conexão entre uma VPC e a internet. Você pode pensar em um gateway da internet como sendo semelhante a uma porta que os clientes usam para entrar na cafeteria. Sem um gateway da internet, ninguém pode acessar os recursos em sua VPC.
+
+### E se você tiver uma VPC apenas com recursos privados?
+
+Para acessar recursos privados em uma VPC, você pode usar um gateway privado virtual.
+
+Veja um exemplo de como um gateway privado virtual funciona. Você pode pensar na internet como o caminho entre sua casa e a cafeteria. Suponha que você está viajando com um guarda-costas para proteção. Você ainda usa o mesmo caminho que outros clientes, mas com uma camada extra de proteção.
+
+O guarda-costas é como uma conexão de rede privada virtual (VPN) que criptografa (ou protege) seu tráfego de internet de todas as outras solicitações ao redor.
+
+O gateway privado virtual é o componente que permite que o tráfego protegido da internet ingresse na VPC. Mesmo que sua conexão com a cafeteria tenha proteção extra, os engarrafamentos são possíveis porque você usa o mesmo caminho que outros clientes.
+
+Um gateway privado virtual permite estabelecer uma conexão VPN (rede virtual privada) entre a VPC e uma rede privada, como um data center local ou uma rede corporativa interna. Um gateway privado virtual permitirá o tráfego na VPC somente se ele for proveniente de uma rede aprovada.
+
+### AWS Direct Connect
+
+O AWS Direct Connect é um serviço que permite estabelecer uma conexão privada dedicada entre seu data center e uma VPC.
+
+Suponha que haja um prédio com um corredor que liga o prédio diretamente à cafeteria. Somente os moradores do prédio podem passar por esse corredor.
+
+Esse corredor privado fornece o mesmo tipo de conexão dedicada que o AWS Direct Connect. Os moradores conseguem entrar na cafeteria sem precisarem usar a estrada pública compartilhada com outros clientes.
+
+A conexão privada que o AWS Direct Connect fornece ajuda você a reduzir os custos de rede e a aumentar a quantidade de largura de banda que pode trafegar pela sua rede.
+
+### Sub-redes e listas de controle de acesso à rede
+
+Para saber mais sobre a função das sub-redes em uma VPC, revise o exemplo da cafeteria a seguir.
+
+Primeiro, os clientes fazem os pedidos ao operador de caixa. O operador de caixa, em seguida, passa os pedidos para o barista. Esse processo permite que a fila prossiga sem problemas à medida que mais clientes entram.
+
+Suponha que alguns clientes tentem pular a fila do caixa e fazer seus pedidos diretamente ao barista. Isso interrompe o fluxo de tráfego e faz com que os clientes acessem uma parte da cafeteria que é restrita a eles.
+
+Para corrigir isso, os proprietários da cafeteria dividem a área do balcão colocando o operador de caixa e o barista em estações de trabalho separadas. A estação de trabalho do operador de caixa é voltada para o público e projetada para receber clientes. A área do barista é privada. O barista ainda pode receber pedidos do operador de caixa, mas não diretamente dos clientes.
+
+Isso se parece à forma como você pode usar os serviços de redes da AWS para isolar recursos e determinar exatamente como o tráfego de rede flui.
+
+Na cafeteria, você pode pensar na área do balcão como uma VPC. A área do balcão divide-se em duas áreas separadas para a estação de trabalho do operador de caixa e para a estação de trabalho do barista. Em uma VPC, sub-redes são áreas separadas usadas para agrupar recursos.
+
+### Sub-redes
+
+Uma sub-rede é uma seção de uma VPC na qual você pode agrupar recursos com base em necessidades operacionais ou de segurança. As sub-redes podem ser públicas ou privadas.
+
+**Sub-redes públicas** contêm recursos que precisam ser acessíveis ao público, como o site de uma loja on-line.
+
+As **sub-redes privadas** contêm recursos que devem ser acessíveis apenas pela sua rede privada, como um banco de dados contendo informações pessoais dos clientes e históricos de pedidos.
+
+Em uma VPC, as sub-redes podem se comunicar entre si. Por exemplo, um aplicativo que envolve instâncias do Amazon EC2 em uma sub-rede pública que se comunicam com bancos de dados localizados em uma sub-rede privada.
+
+### Tráfego de rede em uma VPC
+
+Quando um cliente solicita dados de um aplicativo hospedado na nuvem AWS, essa solicitação é enviada como um pacote. Um pacote é uma unidade de dados enviada pela internet ou por uma rede.
+
+Ele entra em uma VPC por um gateway da internet. Antes de um pacote poder entrar em uma sub-rede ou sair de uma sub-rede, ele verifica se há permissões. Essas permissões indicam quem enviou o pacote e como ele tenta se comunicar com os recursos em uma sub-rede.
+
+O componente da VPC que verifica as permissões de pacotes para sub-redes é uma lista de controle de acesso (ACL) de rede.
+
+### Lista de controle de acesso (ACL) de rede
+
+Uma lista de controle de acesso (ACL) de rede é um firewall virtual que controla o tráfego de entrada e saída no nível de sub-rede.
+
+Por exemplo, saia da cafeteria e imagine que você está em um aeroporto. No aeroporto, os viajantes estão tentando entrar em um país diferente. Você pode pensar nos viajantes como pacotes e no oficial de controle de passaportes como uma ACL de rede. O oficial de controle de passaportes verifica as credenciais dos viajantes quando entram e saem do país. Se um viajante estiver em uma lista aprovada, ele poderá passar. No entanto, se ele não estiver na lista aprovada ou estiver explicitamente em uma lista de viajantes proibidos, ele não poderá entrar.
+
+Cada conta AWS tem uma ACL de rede regular. Ao configurar sua VPC, você pode usar a ACL de rede comum da sua conta ou criar ACLs de rede personalizadas.
+
+Por padrão, a ACL de rede comum da conta permite todo o tráfego de entrada e saída, mas você pode modificá-la adicionando suas próprias regras. Para ACLs de rede personalizadas, todo o tráfego de entrada e saída é negado até que você adicione regras para especificar qual tráfego permitir. Além disso, todas as ACLs de rede têm uma regra de negação explícita. Essa regra garante que, se um pacote não corresponder a nenhuma das outras regras na lista, ele será negado.
+
+### Filtragem de pacotes stateless
+
+As ACLs de rede executam a filtragem de pacotes stateless. Elas não se lembram de nada e verificam os pacotes que atravessam a fronteira da sub-rede em todos os sentidos: entrada e saída.
+
+Lembre-se do exemplo anterior de um viajante que quer entrar em um país diferente. Isso se parece com o envio de uma solicitação de uma instância do Amazon EC2 e para a internet.
+
+Quando uma resposta de pacote para essa solicitação volta para a sub-rede, a ACL de rede não se lembra da solicitação anterior. A ACL de rede verifica a resposta do pacote em relação à lista de regras para determinar se deseja permitir ou negar.
+
+Depois que um pacote entra em uma sub-rede, ele deve ter as permissões avaliadas para recursos dentro da sub-rede, como as instâncias do Amazon EC2.
+
+O componente da VPC que verifica as permissões de pacote para uma instância do Amazon EC2 é um grupo de segurança.
+
+### Grupos de segurança
+
+Um grupo de segurança é um firewall virtual que controla o tráfego de entrada e saída de uma instância do Amazon EC2.
+
+Por padrão, um grupo de segurança nega todo o tráfego de entrada e permite todo o tráfego de saída. Você pode adicionar regras personalizadas para configurar o tráfego a ser permitido ou negado.
+
+Para este exemplo, suponha que você esteja em um prédio com um porteiro que cumprimenta os visitantes no lobby. Você pode pensar nos visitantes como pacotes e no porteiro como um grupo de segurança. À medida que os visitantes chegam, o porteiro verifica uma lista para garantir que eles podem entrar no edifício. No entanto, o porteiro não verifica a lista novamente quando os visitantes saem do edifício
+
+Se você tiver várias instâncias do Amazon EC2 em uma sub-rede, poderá associá-las ao mesmo grupo de segurança ou usar grupos de segurança diferentes para cada instância.
+
+### Filtragem de pacotes stateful
+
+Os grupos de segurança fazem a filtragem de pacotes stateful. Eles se lembram de decisões anteriores tomadas para pacotes recebidos.
+
+Considere o mesmo exemplo de envio de uma solicitação de uma instância do Amazon EC2 para a internet.
+
+Quando uma resposta de pacote para essa solicitação retorna para a instância, o grupo de segurança lembra da solicitação anterior. O grupo de segurança permite que a resposta prossiga, independentemente das regras do grupo de segurança de entrada.
+
+As ACLs de rede e os grupos de segurança permitem que você configure regras personalizadas para o tráfego em sua VPC. Conforme você aprende mais sobre a segurança e a rede da AWS, verifique se entendeu as diferenças entre ACLs de rede e grupos de segurança.
+
+### Domain Name System (DNS)
+
+Suponha que a AnyCompany tenha um site hospedado na nuvem AWS. Os clientes digitam o endereço da web no navegador e podem acessar o site. Isso acontece devido à resolução Domain Name System (DNS). A resolução de DNS envolve um servidor DNS que se comunica com um servidor web.
+
+Você pode pensar no DNS como sendo a lista telefônica da internet. A resolução de DNS é o processo de conversão de um nome de domínio para um endereço IP.
+
+Por exemplo, suponha que você deseja acessar o site da AnyCompany.
+
+1. Quando você insere o nome de domínio no navegador, essa solicitação é enviada para um resolvedor de DNS do cliente.
+2. O resolvedor de DNS do cliente solicita ao servidor DNS da empresa o endereço IP que corresponde ao site da AnyCompany.
+3. O servidor DNS responde com o endereço IP para o site da AnyCompany, 192.0.2.0.
+
+### Amazon Route 53
+
+O Amazon Route 53 é um serviço web de DNS. Oferece aos desenvolvedores e empresas uma maneira confiável de rotear os usuários finais para aplicativos da internet hospedados na AWS.
+
+O Amazon Route 53 conecta solicitações de usuários à infraestrutura em execução na AWS (como instâncias do Amazon EC2 e balanceadores de carga). Ele pode direcionar os usuários para a infraestrutura fora da AWS.
+
+Outro recurso do Route 53 é a capacidade de gerenciar os registros DNS para nomes de domínio. Você pode registrar novos nomes de domínio diretamente no Route 53. Você também pode transferir registros DNS para nomes de domínio existentes gerenciados por outras empresas de registro de domínio. Isso permite que você gerencie todos os seus nomes de domínio em um único local.
+
+No módulo anterior, você conheceu o Amazon CloudFront, um serviço de entrega de conteúdo. O exemplo a seguir descreve como o Route 53 e o Amazon CloudFront trabalham juntos para entregar conteúdo aos clientes.
