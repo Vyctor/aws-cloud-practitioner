@@ -57,6 +57,28 @@
     - [Filtragem de pacotes stateful](#filtragem-de-pacotes-stateful)
     - [Domain Name System (DNS)](#domain-name-system-dns)
     - [Amazon Route 53](#amazon-route-53)
+  - [Armazenamento e banco de dados](#armazenamento-e-banco-de-dados)
+    - [Armazenamentos de instâncias](#armazenamentos-de-instâncias)
+    - [Amazon Elastic Block Store (Amazon EBS)](#amazon-elastic-block-store-amazon-ebs)
+    - [Snapshots do Amazon EBS](#snapshots-do-amazon-ebs)
+    - [Armazenamento de objetos](#armazenamento-de-objetos)
+    - [Amazon Simple Storage Service (Amazon S3)](#amazon-simple-storage-service-amazon-s3)
+    - [Classes de armazenamento do Amazon S3](#classes-de-armazenamento-do-amazon-s3)
+      - [S3 Standard](#s3-standard)
+      - [S3 Standard Infraquent Access (S3 Standard IA)](#s3-standard-infraquent-access-s3-standard-ia)
+      - [S3 Standard Infraquent Access (S3 Standard IA - One Zone)](#s3-standard-infraquent-access-s3-standard-ia---one-zone)
+      - [S3 Intelligent Tiering](#s3-intelligent-tiering)
+      - [S3 Glacier](#s3-glacier)
+      - [S3 Glacier Deep Archive](#s3-glacier-deep-archive)
+    - [Elastic File System (Amazon EFS)](#elastic-file-system-amazon-efs)
+    - [Amazon RDS](#amazon-rds)
+    - [Mecanismos de banco de dados do Amazon RDS](#mecanismos-de-banco-de-dados-do-amazon-rds)
+    - [Amazon Aurora](#amazon-aurora)
+    - [Amazon DynamoDB](#amazon-dynamodb)
+    - [Amazon Redshift](#amazon-redshift)
+    - [AWS Database Migration Service](#aws-database-migration-service)
+      - [Outros casos de uso do AWS DMS](#outros-casos-de-uso-do-aws-dms)
+    - [Outros serviços de banco de dados](#outros-serviços-de-banco-de-dados)
 
 A AWS é uma plataforma de serviços em nuvem que oferece poder computacional, armazenamento de banco de dados, entrega de conteúdo e outras funcionalidades para ajudar as empresas a expandir e crescer.
 
@@ -253,7 +275,7 @@ No início deste módulo, você conheceu o Amazon EC2, um serviço que permite e
 2. Faça upload do código
 3. Continue gerenciando as instâncias enquanto o aplicativo está em execução.
 
-O termo “sem servidor”, ou serverless, significa que o código é executado em servidores, sem que você precise provisionar ou gerenciar esses servidores. Com a computação sem servidor, você pode se concentrar na inovação de novos produtos e recursos em vez de manter servidores.
+O termo "sem servidor", ou serverless, significa que o código é executado em servidores, sem que você precise provisionar ou gerenciar esses servidores. Com a computação sem servidor, você pode se concentrar na inovação de novos produtos e recursos em vez de manter servidores.
 
 Outro benefício da computação sem servidor é a flexibilidade de dimensionar aplicativos sem servidor automaticamente. A computação sem servidor pode ajustar a capacidade de aplicativos modificando as unidades de consumo, como taxa de transferência e memória.
 
@@ -492,3 +514,189 @@ O Amazon Route 53 conecta solicitações de usuários à infraestrutura em execu
 Outro recurso do Route 53 é a capacidade de gerenciar os registros DNS para nomes de domínio. Você pode registrar novos nomes de domínio diretamente no Route 53. Você também pode transferir registros DNS para nomes de domínio existentes gerenciados por outras empresas de registro de domínio. Isso permite que você gerencie todos os seus nomes de domínio em um único local.
 
 No módulo anterior, você conheceu o Amazon CloudFront, um serviço de entrega de conteúdo. O exemplo a seguir descreve como o Route 53 e o Amazon CloudFront trabalham juntos para entregar conteúdo aos clientes.
+
+## Armazenamento e banco de dados
+
+Neste módulo, você aprenderá a:
+
+- Resumir o conceito básico de armazenamento e bancos de dados.
+- Descrever os benefícios do Amazon Elastic Block Store (Amazon EBS).
+- Descrever os benefícios do Amazon Simple Storage Solution (Amazon S3).
+- Descrever os benefícios do Amazon Elastic File System (Amazon EFS).
+- Resumir várias soluções de armazenamento.
+- Descrever os benefícios do Amazon Relational Database Service (RDS).
+- Descrever os benefícios do Amazon DynamoDB.
+- Resumir vários serviços de banco de dados.
+
+### Armazenamentos de instâncias
+
+Os volumes de armazenamento a nível de bloco se comportam como discos rígidos físicos.
+
+Um armazenamento de instâncias fornece armazenamento temporário a nível de bloco para uma instância do Amazon EC2. Um armazenamento de instância é o armazenamento em disco fisicamente anexo ao computador host para uma instância do EC2 e, portanto, tem a mesma vida útil da instância. Quando a instância é encerrada, todos os dados no armazenamento de instâncias são perdidos.
+
+### Amazon Elastic Block Store (Amazon EBS)
+
+O Amazon Elastic Block Store (Amazon EBS) é um serviço que fornece volumes de armazenamento a nível de bloco que você pode usar com instâncias do Amazon EC2. Se você interromper ou encerrar uma instância do Amazon EC2, todos os dados no volume do EBS anexo permanecerão disponíveis.
+
+Para criar um volume do EBS, defina a configuração (como tamanho e tipo do volume) e a provisão. Depois de criar um volume do EBS, ele pode ser anexado a uma instância do Amazon EC2.
+
+Como os volumes do EBS são para dados que precisam perdurar, é importante fazer backup dos dados. Você pode fazer backups complementares de volumes do EBS criando snapshots do Amazon EBS.
+
+Um volume do Amazon EBS armazena dados em uma única Zona de Disponibilidade.
+
+Para anexar uma instância do Amazon EC2 a um volume do EBS, tanto a instância do Amazon EC2 quanto o volume do EBS devem residir na mesma Zona de Disponibilidade.
+
+### Snapshots do Amazon EBS
+
+Um snapshot do EBS é um backup incremental. Isso significa que o primeiro backup de um volume copia todos os dados. Nos backups subsequentes, somente os blocos de dados que foram alterados desde o snapshot mais recente são salvos.
+
+Os backups complementares são diferentes dos backups completos, nos quais todos os dados em um volume de armazenamento são copiados cada vez que ocorre um backup. O backup completo inclui dados que não foram alterados desde o backup mais recente.
+
+### Armazenamento de objetos
+
+No armazenamento de objetos, cada objeto consiste em dados, metadados e uma chave.
+
+Os dados podem ser uma imagem, vídeo, documento de texto ou qualquer outro tipo de arquivo. Os metadados contêm informações sobre o que são os dados, como eles são usados, o tamanho do objeto e assim por diante. A chave de um objeto é seu identificador exclusivo.
+
+**Lembre-se de que, quando modificar um arquivo no armazenamento de blocos, somente as partes alteradas são atualizadas. Quando um arquivo no armazenamento de objetos é modificado, todo o objeto é atualizado.**
+
+### Amazon Simple Storage Service (Amazon S3)
+
+O Amazon Simple Storage Service (Amazon S3) é um serviço que fornece armazenamento a nível do objeto. O Amazon S3 armazena dados como objetos em buckets.
+
+É possível fazer upload de qualquer tipo de arquivo para o Amazon S3, como imagens, vídeos, arquivos de texto e assim por diante. Por exemplo, você pode usar o Amazon S3 para armazenar arquivos de backup, arquivos de mídia para um site ou documentos arquivados. O Amazon S3 oferece espaço de armazenamento ilimitado. O tamanho máximo de arquivo para um objeto no Amazon S3 é de 5 TB.
+
+Ao fazer upload de um arquivo para o Amazon S3, é possível definir permissões para controlar a visibilidade e o acesso a ele. Você também pode usar o recurso de versionamento do Amazon S3 para rastrear alterações em seus objetos ao longo do tempo.
+
+### Classes de armazenamento do Amazon S3
+
+Com o Amazon S3, você paga somente pelo que usar. Você pode escolher dentre diversas categorias de armazenamento aquela que melhor se ajusta às suas necessidades de negócios e de custo. Ao selecionar uma categoria de armazenamento do Amazon S3, considere esses dois fatores:
+
+- Com que frequência você planeja recuperar seus dados
+- Seus dados precisam estar muito ou pouco disponíveis
+
+#### S3 Standard
+
+- Projetado para dados acessados com frequência
+- Armazena dados em um mínimo de três Zonas de Disponibilidade
+
+O S3 Standard fornece alta disponibilidade para objetos. Isso o torna uma boa escolha para diversos casos de uso, como sites, distribuição de conteúdo e análise de dados. O S3 Standard tem um custo mais alto do que outras categorias de armazenamento para dados acessados com pouca frequência e armazenamento de arquivamento.
+
+#### S3 Standard Infraquent Access (S3 Standard IA)
+
+- Ideal para dados com pouca frequência de acesso
+- Semelhante ao S3 Standard, mas com um preço de armazenamento mais baixo e um preço de recuperação mais alto
+-
+
+O S3 Standard-IA é ideal para dados acessados com pouca frequência, mas que precisam ter alta disponibilidade para quando necessário. O S3 Standard e o S3 Standard - IA armazenam dados em um mínimo de três Zonas de Disponibilidade. O S3 Standard - IA fornece o mesmo nível de disponibilidade do S3 Standard, mas com um preço de armazenamento mais baixo e um preço de recuperação mais alto.
+
+#### S3 Standard Infraquent Access (S3 Standard IA - One Zone)
+
+- Armazena dados em uma única Zona de Disponibilidade
+- Tem um preço de armazenamento menor do que o S3 Standard - IA
+  
+Comparado com o S3 Standard e o S3 Standard - IA, que armazenam dados em um mínimo de três Zonas de Disponibilidade, o S3 One Zone - IA armazena em uma única Zona de Disponibilidade. Isso o torna uma boa categoria de armazenamento nas seguintes condições:
+
+- Você quer economizar custos com armazenamento.
+- Você pode reproduzir facilmente seus dados em caso de falha na Zona de Disponibilidade.
+
+#### S3 Intelligent Tiering
+
+- Ideal para dados com padrões de acesso desconhecidos ou em alteração
+- Requer uma pequena taxa mensal de monitoramento e automação por objeto
+  
+Na categoria de armazenamento S3 Intelligent-Tiering, o Amazon S3 monitora os padrões de acesso dos objetos. Se você não acessou um objeto por 30 dias consecutivos, o Amazon S3 o move automaticamente para o nível de acesso pouco frequente S3 Standard - IA. Se você acessar um objeto no nível de acesso pouco frequente, o Amazon S3 o move automaticamente para o nível de acesso frequente S3 Standard.
+
+#### S3 Glacier
+
+- Armazenamento de baixo custo projetado para arquivamento de dados
+- Capaz de recuperar objetos em poucos minutos a horas
+
+O S3 Glacier é uma categoria de armazenamento de baixo custo, ideal para o arquivamento de dados. Por exemplo, você pode usar essa categoria para armazenar registros de clientes arquivados ou arquivos de fotos e vídeos mais antigos.
+
+#### S3 Glacier Deep Archive
+
+- Categoria de armazenamento de objetos com menor custo, ideal para arquivamento
+- Capaz de recuperar objetos em 12 horas
+
+Ao decidir entre o Amazon S3 Glacier e o Amazon S3 Glacier Deep Archive, considere a prontidão com que você precisa recuperar objetos arquivados. É possível recuperar objetos armazenados na categoria de armazenamento S3 Glacier de alguns minutos a algumas horas. Em comparação, é possível recuperar objetos armazenados na categoria de armazenamento S3 Glacier Deep Archive em até 12 horas.
+
+### Elastic File System (Amazon EFS)
+
+No armazenamento de arquivos, vários clientes (como usuários, aplicativos, servidores e assim por diante) podem acessar dados armazenados em pastas de arquivos compartilhadas. Nessa abordagem, um servidor de armazenamento usa armazenamento em bloco com um sistema de arquivos local para organizar os arquivos. Os clientes acessam dados através de caminhos de arquivo.
+
+Comparado ao armazenamento em blocos e ao armazenamento de objetos, o armazenamento de arquivos é ideal para casos de uso em que um grande número de serviços e recursos precisam acessar os mesmos dados ao mesmo tempo.
+
+O Amazon Elastic File System (Amazon EFS) é um sistema de arquivos escalável usado com os serviços de nuvem AWS e recursos locais. À medida que você adiciona e remove arquivos, o Amazon EFS expande e retrai automaticamente. Ele pode dimensionar sob demanda para petabytes sem interromper os aplicativos.
+
+O Amazon EFS é um serviço regional. Ele armazena dados em várias Zonas de Disponibilidade e entre elas.
+
+O armazenamento duplicado permite que você acesse dados simultaneamente de todas as Zonas de Disponibilidade na Região em que um sistema de arquivos está localizado. Além disso, os servidores locais podem acessar o Amazon EFS usando o AWS Direct Connect.
+
+### Amazon RDS
+
+O Amazon Relational Database Service (Amazon RDS) é um serviço que permite executar bancos de dados relacionais na nuvem AWS.
+
+O Amazon RDS é um serviço gerenciado que automatiza tarefas como provisionamento de hardware, configuração de banco de dados, patch e backups. Com esses recursos, você pode passar menos tempo concluindo tarefas administrativas e mais tempo usando dados para inovar seus aplicativos. Você pode integrar o Amazon RDS a outros serviços para atender às suas necessidades de negócios e operacionais, como usar o AWS Lambda para consultar seu banco de dados a partir de um aplicativo sem servidor.
+
+O Amazon RDS fornece inúmeras opções de segurança diferentes. Muitos mecanismos de banco de dados do Amazon RDS oferecem criptografia em repouso (protegendo os dados enquanto estão armazenados) e criptografia em trânsito (protegendo os dados enquanto estão sendo enviados e recebidos).
+
+### Mecanismos de banco de dados do Amazon RDS
+
+O Amazon RDS está disponível em seis mecanismos de banco de dados, que otimizam memória, desempenho ou entrada/saída (E/S). Os mecanismos de banco de dados compatíveis são:
+
+- Amazon Aurora
+- PostgreSQL
+- MySQL
+- MariaDB
+- Oracle Database
+- Microsoft SQL Server
+
+### Amazon Aurora
+
+Amazon Aurora
+
+O Amazon Aurora é um banco de dados relacional de nível empresarial. É compatível com os bancos de dados relacionais MySQL e PostgreSQL. É até cinco vezes mais rápido do que os bancos de dados MySQL comuns e até três vezes mais rápido do que os bancos de dados PostgreSQL comuns.
+
+O Amazon Aurora ajuda a reduzir os custos do banco de dados reduzindo operações desnecessárias de entrada/saída (E/S), garantindo que os recursos do banco de dados permaneçam confiáveis e disponíveis.
+
+Considere o Amazon Aurora se suas cargas de trabalho exigem alta disponibilidade. Ele replica seis cópias de seus dados em três Zonas de Disponibilidade e faz backup contínuo de seus dados para o Amazon S3.
+
+### Amazon DynamoDB
+
+O Amazon DynamoDB é um serviço de banco de dados de chave-valor. Ele oferece um desempenho de um dígito de milissegundo em qualquer scaling.
+
+O DynamoDB é sem servidor, o que significa que você não precisa provisionar, aplicar patches ou gerenciar servidores.
+
+Você também não precisa instalar, manter ou operar o software.
+
+À medida que o tamanho do banco de dados expande ou retrai, o DynamoDB é dimensionado automaticamente para ajustar as alterações na capacidade e, ao mesmo tempo, manter o desempenho consistente.
+
+Isso o torna uma escolha adequada para casos de uso que exigem alto desempenho durante o scaling.
+
+### Amazon Redshift
+
+O Amazon Redshift é serviço de data warehouse que você pode usar para análise de big data. Ele oferece a capacidade de coletar dados de muitas fontes além de ajudar a entender relações e tendências em todos os seus dados.
+
+### AWS Database Migration Service
+
+O AWS Database Migration Service (AWS DMS) permite migrar bancos de dados relacionais e não relacionais e outros tipos de armazenamentos de dados.
+
+Com o AWS DMS, você move dados entre bancos de dados de origem e de destino. Os bancos de dados de origem e de destino podem ser do mesmo tipo ou de tipos diferentes. Durante a migração, o banco de dados de origem permanece operacional, reduzindo o tempo de inatividade em qualquer aplicativo que dependa do banco de dados.
+
+Por exemplo, suponha que você tenha um banco de dados MySQL armazenado localmente em uma instância do Amazon EC2 ou no Amazon RDS. Pense no banco de dados MySQL como seu banco de dados de origem. Usando o AWS DMS, você pode migrar seus dados para um banco de dados de destino, por exemplo, um banco de dados do Amazon Aurora.
+
+#### Outros casos de uso do AWS DMS
+
+- Os desenvolvedores conseguem testar os aplicativos com os dados de produção sem afetar os usuários de produção
+- Combinação de vários bancos de dados em um único banco de dados
+- Envio de cópias contínuas de seus dados para outras fontes de destino em vez de fazer uma migração única
+
+### Outros serviços de banco de dados
+
+- O Amazon DocumentDB é um serviço de banco de dados de documentos compatível com cargas de trabalho do MongoDB. (MongoDB é um programa de banco de dados de documentos.
+- O Amazon Neptune é um serviço de banco de dados de grafo. Você pode usar o Amazon Neptune para criar e executar aplicativos que funcionam com conjuntos de dados altamente conectados, como mecanismos de recomendação, detecção de fraudes e gráficos de conhecimento.
+- O Amazon Quantum Ledger Database (Amazon QLDB) é um serviço de banco de dados ledger. Você pode usar o Amazon QLDB para revisar um histórico completo de todas as alterações feitas nos dados do aplicativo.
+- O Amazon Managed Blockchain é um serviço para criar e gerenciar redes de blockchain com estruturas de código aberto. O Blockchain é um sistema de registro distribuído que permite que várias partes executem transações e compartilhem dados sem uma autoridade central.
+- O Amazon ElastiCache é um serviço que adiciona camadas de cache sobre seus bancos de dados para ajudar a melhorar os tempos de leitura de solicitações comuns. Ele é compatível com dois tipos de armazenamentos de dados: Redis e Memcached.
+- O Amazon DynamoDB Accelerator (DAX) é um cache em memória para o DynamoDB. Ele ajuda a melhorar os tempos de resposta de milissegundos para microssegundos.
