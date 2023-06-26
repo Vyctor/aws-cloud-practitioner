@@ -112,6 +112,28 @@
     - [AWS CloudTrail](#aws-cloudtrail)
     - [AWS Trusted Advisor](#aws-trusted-advisor)
       - [Painel do AWS Trusted Advisor](#painel-do-aws-trusted-advisor)
+  - [Definição de preços e suporte](#definição-de-preços-e-suporte)
+    - [Nível Gratuito da AWS](#nível-gratuito-da-aws)
+      - [Sempre gratuito](#sempre-gratuito)
+      - [12 meses gratuitos](#12-meses-gratuitos)
+      - [Versão de teste](#versão-de-teste)
+    - [Conceitos de definição de preço da AWS](#conceitos-de-definição-de-preço-da-aws)
+      - [Pague somente pelo que usar](#pague-somente-pelo-que-usar)
+      - [Pague menos ao fazer reserva](#pague-menos-ao-fazer-reserva)
+      - [Pague menos com descontos baseados em volume, quando usar mais](#pague-menos-com-descontos-baseados-em-volume-quando-usar-mais)
+      - [Calculadora de preços da AWS](#calculadora-de-preços-da-aws)
+    - [Painel de cobrança](#painel-de-cobrança)
+    - [Faturamento consolidado](#faturamento-consolidado)
+    - [AWS Budgets](#aws-budgets)
+    - [AWS Cost Explorer](#aws-cost-explorer)
+    - [Planos do AWS Support](#planos-do-aws-support)
+      - [Basic](#basic)
+      - [Suporte Developer, Business e Enterprise](#suporte-developer-business-e-enterprise)
+      - [Developer](#developer)
+      - [Business](#business)
+      - [Enterprise](#enterprise)
+      - [Technical Account Manager (TAM)](#technical-account-manager-tam)
+    - [AWS Marketplace](#aws-marketplace)
 
 A AWS é uma plataforma de serviços em nuvem que oferece poder computacional, armazenamento de banco de dados, entrega de conteúdo e outras funcionalidades para ajudar as empresas a expandir e crescer.
 
@@ -1000,3 +1022,188 @@ Para cada categoria:
 - A marca de verificação verde indica o número de itens para os quais não foram detectados problemas.
 - O triângulo laranja representa o número de investigações recomendadas.
 - O círculo vermelho representa o número de ações recomendadas.
+
+## Definição de preços e suporte
+
+Objetivos de aprendizado
+
+Neste módulo, você aprenderá a:
+
+- Descrever os modelos de definição de preço e suporte AWS.
+- Descrever o nível gratuito da AWS.
+- Descrever os principais benefícios do AWS Organizations e da cobrança consolidada.
+- Explicar os benefícios do AWS Budgets.
+- Explicar os benefícios do AWS Cost Explorer.
+- Explicar os principais benefícios da Calculadora de preços AWS.
+- Distinguir entre os vários planos do AWS Support.
+- Descrever os benefícios do AWS Marketplace.
+
+### Nível Gratuito da AWS
+
+Com o nível gratuito da AWS, você começa a usar determinados serviços sem ter que se preocupar em incorrer em custos durante o período especificado.
+
+Três tipos de ofertas estão disponíveis:
+
+- Sempre gratuito
+- 12 meses gratuitos
+- Versão de teste
+
+Para cada oferta de nível gratuito, revise o detalhes sobre exatamente quais recursos estão incluídos.
+
+#### Sempre gratuito
+
+Essas ofertas não expiram e estão disponíveis para todos os clientes AWS.
+
+Por exemplo, o AWS Lambda permite um milhão de solicitações gratuitas e até 3,2 milhões de segundos de tempo de computação por mês. O Amazon DynamoDB libera 25 GB de armazenamento gratuito por mês.
+
+#### 12 meses gratuitos
+
+Essas ofertas são gratuitas por 12 meses após sua data de inscrição inicial na AWS.
+
+Quantidades específicas de armazenamento comum do Amazon S3, limites para horas mensais de tempo de computação do Amazon EC2 e quantidades de transferência de dados do Amazon CloudFront para fora são alguns exemplos.
+
+#### Versão de teste
+
+As versões de teste gratuitas de curto prazo começam na data em que você ativa determinado serviço. A duração de cada teste pode variar de acordo com o número de dias ou a quantidade de uso do serviço.
+
+Por exemplo, o Amazon Inspector oferece uma versão gratuita de 90 dias. O Amazon Lightsail (um serviço que permite que você execute servidores virtuais privados) oferece 750 horas de uso gratuitas em um período de 30 dias.
+
+### Conceitos de definição de preço da AWS
+
+A AWS oferece diversos serviços de computação em nuvem com modelos de pagamento conforme o uso.
+
+#### Pague somente pelo que usar
+
+Para cada serviço, você paga exatamente a quantidade de recursos que realmente usa, sem exigir contratos de longo prazo ou licenciamento complexo.
+
+#### Pague menos ao fazer reserva
+
+Alguns serviços oferecem opções de reserva com desconto significativo em comparação com as definições de preços da instância sob demanda.
+
+Por exemplo, suponha que sua empresa use instâncias do Amazon EC2 para uma carga de trabalho que precisa ser executada continuamente. Você pode optar por executar essa carga de trabalho no Amazon EC2 Instance Savings Plans, pois o plano permite uma economia de até 72% em relação à capacidade equivalente da instância sob demanda.
+
+#### Pague menos com descontos baseados em volume, quando usar mais
+
+Alguns serviços oferecem definição de preço em camadas, portanto, o custo por unidade é incrementalmente menor com o aumento do uso.
+Por exemplo, quanto mais espaço de armazenamento do Amazon S3 você usar, menos pagará por GB.
+
+#### Calculadora de preços da AWS
+
+A calculadora de preços AWS permite explorar os serviços AWS e gerar uma estimativa de custo de seus casos de uso na AWS. Você pode organizar as suas estimativas da AWS por grupos que definir. Um grupo pode refletir como sua empresa está organizada, por exemplo, fornecer estimativas por centro de custo.
+Depois de criar uma estimativa, você pode salvá-la e gerar um link para compartilhá-la com outras pessoas.
+
+Suponha que sua empresa esteja interessada em usar o Amazon EC2. No entanto, você ainda não tem certeza de qual Região AWS ou tipo de instância seria o mais econômico para seu caso de uso. Na calculadora de preços AWS, você pode inserir detalhes como o tipo de sistema operacional necessário, requisitos de memória e requisitos de entrada/saída (E/S). Usando a calculadora de preços AWS, você pode revisar uma comparação estimada de diferentes tipos de instância do EC2 nas Regiões AWS.
+
+### Painel de cobrança
+
+Use o painel de gerenciamento de faturamento e custos da AWS para pagar sua fatura da AWS, monitorar seu uso e analisar e controlar seus custos.
+
+- Compare o saldo atual do mês acumulado com o mês anterior e obtenha uma previsão do próximo mês com base no uso atual.
+- Visualize os gastos do mês acumulado por serviço.
+- Visualize o uso do nível gratuito por serviço.
+- Acesse o Cost Explorer e crie orçamentos.
+- Adquira e gerencie o Savings Plans.
+- Publique relatórios de custos e uso da AWS.
+
+### Faturamento consolidado
+
+Em um módulo anterior, você aprendeu sobre o AWS Organizations, um serviço que permite gerenciar múltiplas contas AWS em um local central. O AWS Organizations também oferece a opção de cobrança consolidada.
+
+O recurso de cobrança consolidada do AWS Organizations permite que você receba uma única fatura para todas as contas AWS de sua organização. Ao consolidar, você pode rastrear facilmente os custos combinados de todas as contas vinculadas em sua organização. O número máximo de contas permitido para uma organização é quatro, mas você pode entrar em contato com o AWS Support para aumentar sua cota, se necessário.
+
+Na sua fatura mensal, você pode revisar os encargos discriminados incorridos por cada conta. Isso permite que você tenha maior transparência nas contas da sua organização, mantendo a conveniência de receber uma única fatura mensal.
+
+Outro benefício da cobrança consolidada é a capacidade de compartilhar preços de desconto por volume, Savings Plans e instâncias reservadas nas contas da sua organização. Por exemplo, uma conta pode não ter uso mensal suficiente para se qualificar para preços com desconto. No entanto, quando várias contas são combinadas, o uso agregado pode resultar em um benefício que se aplica a todas as contas na organização.
+
+### AWS Budgets
+
+No AWS Budgets, você pode criar orçamentos para planejar o uso do serviço, os custos de serviço e as reservas de instâncias.
+
+As informações do AWS Budgets são atualizadas três vezes por dia. Isso ajuda você a definir com precisão a proximidade entre seu uso e os valores orçados ou limites de nível gratuito da AWS.
+
+No AWS Budgets, você também pode definir alertas personalizados para quando seu uso exceder (ou estiver prestes a exceder) o valor orçado.
+
+### AWS Cost Explorer
+
+O AWS Cost Explorer é uma ferramenta que permite visualizar, interpretar e gerenciar seus custos e uso da AWS ao longo do tempo.
+
+O AWS Cost Explorer inclui um relatório básico dos custos e do uso dos cinco principais serviços da AWS de acúmulo de custos. Você pode aplicar filtros e grupos personalizados para analisar seus dados. Por exemplo, você pode exibir o uso de recursos no nível por hora.
+
+### Planos do AWS Support
+
+A AWS oferece quatro planos de suporte diferentes para ajudar você a solucionar problemas, reduzir custos e usar os serviços AWS de forma eficiente.
+
+Você pode escolher entre os seguintes planos de suporte para atender às necessidades de sua empresa:
+
+- Basic
+- Developer
+- Business
+- Enterprise
+
+#### Basic
+
+O suporte Basic é gratuito para todos os clientes AWS. Inclui acesso a whitepapers, documentação e comunidades de suporte. Com o suporte Basic, você também pode entrar em contato com a AWS para tratar de questões de cobrança e aumento do limite de serviço
+
+Com ele, você tem acesso a uma seleção limitada de verificações do AWS Trusted Advisor. Além disso, você pode usar o AWS Personal Health Dashboard, uma ferramenta com alertas e orientações de correção quando a AWS enfrenta eventos que podem afetar você.
+
+Se a sua empresa precisar de suporte além do nível Basic, é possível adquirir os suportes Developer, Business ou Enterprise.
+
+#### Suporte Developer, Business e Enterprise
+
+Os planos de suporte Developer, Business e Enterprise têm todos os benefícios do suporte Basic, além de poder abrir um número irrestrito de casos de suporte técnico. Esses três planos de suporte têm pagamento mensal e não exigem contratos de longo prazo.
+
+As informações deste curso destacam apenas uma alguns detalhes para cada plano de suporte. Uma visão geral completa do que faz parte de cada plano de suporte, incluindo a definição de preço de cada plano, está disponível no site do AWS Support.
+
+Em geral, para definição de preço, o plano Developer tem o menor custo, o plano Business é intermediário e o plano Enterprise tem o custo mais alto.
+
+Para saber mais, clique no símbolo + ao lado de cada categoria
+
+#### Developer
+
+Os clientes com um plano de suporte Developer têm acesso a recursos como:
+
+- Orientação de práticas recomendadas
+- Ferramentas de diagnóstico do lado do cliente
+- Suporte à arquitetura de componentes fundamentais, que consiste em orientações sobre como usar as ofertas, recursos e serviços AWS combinados
+
+Por exemplo, suponha que sua empresa esteja explorando os serviços AWS. Você já ouviu falar sobre alguns serviços diferentes da AWS. No entanto, você não tem certeza de como usá-los combinados para criar aplicativos que possam atender às necessidades de sua empresa. Nesse cenário, o suporte à arquitetura de componentes fundamentais incluído no plano de suporte Developer pode ajudar você a identificar oportunidades para combinar serviços e recursos específicos.
+
+#### Business
+
+Os clientes com um plano de suporte Business têm acesso a recursos adicionais, incluindo:
+
+- Orientação de caso de uso para identificar ofertas, recursos e serviços AWS que podem atender melhor às suas necessidades específicas
+- Todas as verificações do AWS Trusted Advisor
+- Suporte limitado para software de terceiros, como sistemas operacionais comuns e componentes de pilha de aplicativos
+
+Suponha que sua empresa tenha o plano de suporte Business e queira instalar um sistema operacional de terceiros comum em suas instâncias do Amazon EC2. Você pode entrar em contato com o AWS Support para obter assistência com a instalação, configuração e solução de problemas do sistema operacional. Para tópicos avançados, como otimizar o desempenho, usar scripts personalizados ou resolver problemas de segurança, pode ser necessário entrar em contato diretamente com o provedor de software de terceiros.
+
+#### Enterprise
+
+Além de todos os recursos incluídos nos planos de suporte Basic, Developer e Business, os clientes com um plano de suporte Enterprise têm acesso a recursos como:
+
+- Orientação de arquitetura de aplicativos, que é um relacionamento consultivo para apoiar casos de uso e aplicativos específicos da sua empresa
+- Gerenciamento de eventos de infraestrutura: engajamento de curto prazo com o AWS Support que ajuda sua empresa a compreender melhor seus casos de uso. Também fornece à sua empresa orientação de arquitetura e scaling.
+- Um technical account manager
+
+#### Technical Account Manager (TAM)
+
+O plano de suporte Enterprise inclui acesso a um technical account manager (TAM).
+
+Se a sua empresa tiver um plano de suporte Enterprise, o TAM será seu principal ponto de contato com a AWS. Ele oferece orientação, revisões de arquitetura e comunicação contínua com sua empresa enquanto você planeja, implanta e otimiza seus aplicativos.
+
+Seu TAM oferece o conhecimento especializado em toda a gama de serviços AWS. Ele ajuda você a projetar soluções que usam vários serviços combinados de forma eficiente por uma abordagem integrada.
+
+Por exemplo, suponha que você tenha interesse em desenvolver um aplicativo que use vários serviços AWS combinados. O TAM pode fornecer informações sobre como usar melhor os serviços em conjunto. Ele consegue isso ao mesmo tempo em que se alinha com as necessidades específicas que sua empresa espera atender com o novo aplicativo.
+
+### AWS Marketplace
+
+O AWS Marketplace é um catálogo digital com milhares de ofertas de fornecedores independentes de software. Você pode usar o AWS Marketplace para encontrar, testar e comprar software que pode ser executado na AWS.
+
+Para cada oferta no AWS Marketplace, você pode acessar informações detalhadas sobre opções de definição de preço, suporte disponível e avaliações de outros clientes AWS.
+
+Você também pode explorar soluções de software por setor e caso de uso. Por exemplo, suponha que sua empresa atue no setor de saúde. No AWS Marketplace, você pode analisar casos de uso que o software ajuda a resolver, como implementar soluções para proteger prontuários de pacientes, ou usar modelos de machine learning para analisar o histórico médico de um paciente e prever possíveis riscos para a saúde.
+
+O AWS Marketplace oferece produtos em várias categorias, como produtos de infraestrutura, aplicativos de negócios, produtos de dados e DevOps.
+
+Em cada categoria, você pode restringir sua pesquisa navegando pelas ofertas de produtos em subcategorias. Por exemplo, as subcategorias na categoria DevOps incluem áreas como Desenvolvimento de aplicativos, Monitoramento e Teste.
