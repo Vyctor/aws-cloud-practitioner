@@ -79,6 +79,32 @@
     - [AWS Database Migration Service](#aws-database-migration-service)
       - [Outros casos de uso do AWS DMS](#outros-casos-de-uso-do-aws-dms)
     - [Outros serviços de banco de dados](#outros-serviços-de-banco-de-dados)
+  - [Segurança](#segurança)
+    - [Modelo de responsabilidade compartilhada](#modelo-de-responsabilidade-compartilhada)
+    - [AWS Identity and Access Management (IAM)](#aws-identity-and-access-management-iam)
+    - [Usuário-raiz da conta AWS](#usuário-raiz-da-conta-aws)
+    - [Usuários do IAM](#usuários-do-iam)
+    - [Políticas do IAM](#políticas-do-iam)
+    - [Grupos do IAM](#grupos-do-iam)
+    - [Funções do IAM](#funções-do-iam)
+    - [Autenticação multifator](#autenticação-multifator)
+    - [AWS Organizations](#aws-organizations)
+      - [Unidades Organizacionais](#unidades-organizacionais)
+    - [Conformidade](#conformidade)
+      - [AWS Artifact](#aws-artifact)
+      - [Artifact Agreements](#artifact-agreements)
+      - [Artifact Reports](#artifact-reports)
+      - [Centro de conformidade para o cliente](#centro-de-conformidade-para-o-cliente)
+    - [Ataques DDOs](#ataques-ddos)
+      - [Ataques distribuídos de negação de serviço](#ataques-distribuídos-de-negação-de-serviço)
+      - [AWS Shield](#aws-shield)
+        - [AWS Shield Standard](#aws-shield-standard)
+        - [AWS Shield Advanced](#aws-shield-advanced)
+    - [Serviços de Segurança Adicionais](#serviços-de-segurança-adicionais)
+      - [AWS Key Management Service (AWS KMS)](#aws-key-management-service-aws-kms)
+      - [AWS WAF](#aws-waf)
+      - [Amazon Inspector](#amazon-inspector)
+      - [Amazon GuardDuty](#amazon-guardduty)
 
 A AWS é uma plataforma de serviços em nuvem que oferece poder computacional, armazenamento de banco de dados, entrega de conteúdo e outras funcionalidades para ajudar as empresas a expandir e crescer.
 
@@ -700,3 +726,217 @@ Por exemplo, suponha que você tenha um banco de dados MySQL armazenado localmen
 - O Amazon Managed Blockchain é um serviço para criar e gerenciar redes de blockchain com estruturas de código aberto. O Blockchain é um sistema de registro distribuído que permite que várias partes executem transações e compartilhem dados sem uma autoridade central.
 - O Amazon ElastiCache é um serviço que adiciona camadas de cache sobre seus bancos de dados para ajudar a melhorar os tempos de leitura de solicitações comuns. Ele é compatível com dois tipos de armazenamentos de dados: Redis e Memcached.
 - O Amazon DynamoDB Accelerator (DAX) é um cache em memória para o DynamoDB. Ele ajuda a melhorar os tempos de resposta de milissegundos para microssegundos.
+
+## Segurança
+
+### Modelo de responsabilidade compartilhada
+
+Ao longo deste curso, você aprendeu sobre diversos recursos que podem ser criados na nuvem AWS. Esses recursos são as instâncias do Amazon EC2, os buckets do Amazon S3 e os bancos de dados do Amazon RDS. Quem é responsável por manter esses recursos seguros: você (o cliente) ou AWS?
+
+A resposta é ambos. Isso é porque você não trata seu ambiente AWS como um único objeto. Em vez disso, você trata o ambiente como uma coleção de partes que se combinam. A AWS é responsável por algumas partes do seu ambiente e você (o cliente) é responsável por outras. Esse conceito é conhecido como modelo de responsabilidade compartilhada.
+
+O modelo de responsabilidade compartilhada divide-se em responsabilidades do cliente (comumente chamadas de "segurança na nuvem") e responsabilidades da AWS (comumente referidas como "segurança da nuvem").
+
+Você pode pensar nesse modelo como sendo parecido com a divisão de responsabilidades entre um proprietário e uma construtora. A construtora (AWS) é responsável por edificar sua casa e garantir que ela seja construída com solidez. Como proprietário (o cliente), é sua responsabilidade proteger tudo na casa, garantindo que as portas estejam fechadas e trancadas.
+
+### AWS Identity and Access Management (IAM)
+
+O AWS Identity and Access Management (IAM) permite que você gerencie o acesso aos serviços e recursos AWS com segurança.
+O IAM oferece a flexibilidade de configurar o acesso com base nas necessidades operacionais e de segurança específicas da sua empresa. Você pode fazer isso usando uma combinação dos recursos do IAM, explorados em detalhes nesta lição:
+
+- Usuários, grupos e funções do IAM
+- Políticas do IAM
+- Autenticação multifator
+
+Você também conhecerá as práticas recomendadas para cada um desses recursos.
+
+### Usuário-raiz da conta AWS
+
+Ao criar uma conta AWS pela primeira vez, você começa com uma identidade conhecida como usuário-raiz.
+
+O usuário-raiz é acessado ao entrar com o endereço de e-mail e a senha usados para criar a conta AWS. Pense no usuário-raiz como sendo parecido com o proprietário da cafeteria: ele tem acesso completo a todos os serviços e recursos AWS na conta.
+
+**Não use o usuário-raiz para tarefas cotidianas.**
+
+Em vez disso, use o usuário-raiz para criar seu primeiro usuário do IAM e atribua a ele permissões para criar outros usuários.
+
+Em seguida, continue a criar outros usuários do IAM e acesse essas identidades para executar tarefas comuns em toda a AWS. Use o usuário-raiz somente quando precisar executar um número limitado de tarefas disponíveis somente para o usuário-raiz. Exemplos dessas tarefas são a alteração do endereço de e-mail do usuário-raiz e a alteração do plano do AWS Support.
+
+### Usuários do IAM
+
+Um usuário do IAM é uma identidade que você cria na AWS. Ele representa a pessoa ou o aplicativo que interage com os serviços e recursos AWS. Consiste em um nome e credenciais.
+
+Por padrão, ao criar um novo usuário do IAM na AWS, não há permissões associadas a ele. Para permitir que o usuário do IAM execute ações específicas na AWS, como iniciar uma instância do Amazon EC2 ou criar um bucket do Amazon S3, você deve conceder ao usuário do IAM as permissões necessárias.
+
+**Recomendamos que crie usuários individuais do IAM para cada pessoa que precisa acessar a AWS.**
+
+Mesmo que você tenha vários funcionários que precisem do mesmo nível de acesso, você deve criar usuários individuais do IAM para cada um deles. Isso fornece segurança adicional, permitindo que cada usuário do IAM tenha um conjunto exclusivo de credenciais de segurança.
+
+### Políticas do IAM
+
+Uma política do IAM é um documento que concede ou nega permissões para serviços e recursos AWS.  
+
+As políticas do IAM permitem que você personalize os níveis de acesso dos usuários aos recursos. Por exemplo, você pode permitir que os usuários acessem todos os buckets do Amazon S3 em sua conta AWS ou apenas um bucket específico.
+
+Siga o princípio de segurança de menor privilégio ao conceder permissões.
+
+Seguindo esse princípio, você ajuda a impedir que usuários ou funções tenham mais permissões do que o necessário para executar as tarefas.
+
+Por exemplo, se um funcionário precisar acessar apenas um bucket específico, especifique o bucket na política do IAM. Faça isso em vez de conceder ao funcionário acesso a todos os buckets em sua conta AWS.
+
+### Grupos do IAM
+
+Um grupo do IAM é um conjunto de usuários do IAM. Ao atribuir uma política do IAM a um grupo, todos os usuários do grupo recebem permissões especificadas pela política.
+
+Eis um exemplo de como isso pode funcionar na cafeteria. Em vez de atribuir permissões aos operadores um de cada vez, o proprietário pode criar o grupo "operadores de caixa" do IAM. O proprietário pode, em seguida, adicionar usuários do IAM ao grupo e associar permissões no nível do grupo.
+
+A atribuição de políticas do IAM no nível de grupo também facilita o ajuste de permissões quando um funcionário é transferido para um trabalho diferente. Por exemplo, se um operador de caixa se tornar um especialista em inventário, o proprietário da cafeteria o removerá do grupo "operadores de caixa" do IAM e o adicionará ao grupo "especialistas em inventário". Isso garante que os funcionários tenham apenas as permissões necessárias para a função atual.
+
+E se um funcionário da cafeteria não tiver trocado de função permanentemente, mas, em vez disso, revezar em diferentes estações de trabalho ao longo do dia? Esse funcionário pode ter o acesso de que precisa pelas funções do IAM.
+
+### Funções do IAM
+
+Na cafeteria, um funcionário se reveza em diferentes estações de trabalho ao longo do dia. Dependendo do tamanho da equipe da cafeteria, esse funcionário pode desempenhar várias tarefas: trabalhar na caixa registradora, atualizar o sistema de inventário, processar pedidos on-line e assim por diante.
+
+Quando o funcionário precisa alternar para uma tarefa diferente, ele desiste do acesso a uma estação de trabalho e obtém acesso à próxima estação de trabalho. O funcionário pode alternar facilmente entre estações de trabalho, mas, a qualquer momento, ele pode ter acesso a uma única estação de trabalho. Esse mesmo conceito existe na AWS com as funções do IAM.
+
+Uma função do IAM é uma identidade que você pode assumir para obter acesso temporário a permissões.
+
+Antes que um usuário, aplicativo ou serviço do IAM possa assumir uma função do IAM, ele deve receber permissões para alternar para a função. Quando alguém assume uma função do IAM, ele abandona todas as permissões anteriores que tinha em uma função anterior e assume as permissões da nova função.
+
+**As funções do IAM são ideais para situações em que o acesso a serviços ou recursos precisa ser concedido temporariamente, em vez de a longo prazo.**
+
+### Autenticação multifator
+
+Você já entrou em um site que exigia várias informações para verificar sua identidade? Talvez tenha sido necessário digitar sua senha e, em seguida, uma segunda forma de autenticação, como um código aleatório enviado para o telefone. Esse é um exemplo de autenticação multifator.
+
+No IAM, a autenticação multifator (MFA) fornece uma camada adicional de segurança para sua conta AWS.
+
+### AWS Organizations
+
+Suponha que sua empresa tenha múltiplas contas AWS. Você pode usar o AWS Organizationspara consolidar e gerenciar múltiplas contas AWS em um local central.
+
+Ao criar uma organização, o AWS Organizations cria automaticamente uma raiz, que é o contêiner primário para todas as contas de sua organização.
+
+No AWS Organizations, você pode controlar de forma centralizada as permissões para as contas em sua organização usando as políticas de controle de serviço (SCPs). As SCPs permitem que você coloque restrições nos serviços AWS, recursos e ações individuais de API que os usuários e funções em cada conta podem acessar.
+
+**A cobrança consolidada é outro recurso do AWS Organizations. Você conhecerá melhor a cobrança consolidada em um módulo posterior.**
+
+#### Unidades Organizacionais
+
+No AWS Organizations, você pode agrupar contas em unidades organizacionais (UO) para facilitar o gerenciamento de contas com requisitos de negócios ou segurança semelhantes. Ao aplicar uma política a uma UO, todas as contas na UO herdam automaticamente as permissões especificadas na política.  
+
+Ao organizar contas separadas em UO, você pode isolar mais facilmente cargas de trabalho ou aplicativos com requisitos de segurança específicos. Por exemplo, se sua empresa tiver contas que podem acessar apenas os serviços AWS que atendam a determinados requisitos normativos, você poderá colocar essas contas em uma UO. Em seguida, você pode associar uma política à UO que bloqueia o acesso a todos os outros serviços AWS que não atendam aos requisitos normativos.
+
+### Conformidade
+
+A AWS oferece uma ampla variedade de serviços e recursos para ajudar você a atender aos requisitos de conformidade e segurança para a AWS e seus aplicativos executados na AWS.
+
+#### AWS Artifact
+
+Dependendo do setor de sua empresa, talvez seja necessário manter padrões específicos. Uma auditoria ou inspeção assegurará que a empresa cumpriu esses padrões.
+
+O AWS Artifact é um serviço que fornece acesso sob demanda a relatórios de segurança e conformidade da AWS e a contratos on-line selecionados. O AWS Artifact tem duas seções principais: AWS Artifact Agreements e o AWS Artifact Reports.
+
+#### Artifact Agreements
+
+Suponha que sua empresa precise assinar um contrato com a AWS em relação ao uso de determinados tipos de informações em todos os serviços AWS. Você pode fazer isso pelo AWS Artifact Agreements.
+
+No AWS Artifact Agreements, você pode revisar, aceitar e gerenciar contratos para uma conta individual e para todas as suas contas no AWS Organizations. Diferentes tipos de acordos são oferecidos para atender às necessidades dos clientes sujeitos a regulamentações específicas, como a Lei de Portabilidade e Responsabilidade dos Provedores de Saúde dos EUA (HIPAA).
+
+#### Artifact Reports
+
+Suponha que um membro da equipe de desenvolvimento da sua empresa esteja criando um aplicativo e precise de mais informações sobre a responsabilidade em cumprir determinados padrões regulatórios. Você pode recomendar o acesso a essas informações em AWS Artifact Reports.
+
+O AWS Artifact Reports fornece relatórios de conformidade por auditores terceirizados. Esses auditores testaram e verificaram se a AWS está em conformidade com diversas normas e regulamentações de segurança globais, regionais e específicas do setor. O AWS Artifact Reports se mantém atualizado com os relatórios publicados mais recentes. Você pode fornecer os artefatos de auditoria da AWS aos auditores ou reguladores como evidência dos controles de segurança da AWS.
+
+#### Centro de conformidade para o cliente
+
+O Centro de conformidade para o cliente contém recursos que ajudam você a saber mais sobre a conformidade da AWS.
+
+No Centro de conformidade para o cliente, você pode ler histórias de conformidade dos clientes para descobrir como as empresas de setores regulamentados resolveram vários desafios de conformidade, governança e auditoria.
+
+Você também pode acessar whitepapers e documentação de conformidade sobre tópicos como:
+
+- Respostas da AWS aos principais problemas de conformidade
+- Uma visão geral do risco e da conformidade da AWS
+- Uma lista de verificação da segurança de auditoria
+
+Além disso, o Centro de conformidade para o cliente inclui um plano de aprendizagem para auditores. Esse plano de aprendizagem foi elaborado para indivíduos em funções jurídicas, de auditoria e de conformidade que desejam saber mais sobre como suas operações internas podem demonstrar conformidade usando a nuvem AWS.
+
+### Ataques DDOs
+
+Os clientes podem telefonar para a cafeteria para fazer os pedidos. Depois de atender cada chamada, um operador de caixa anota o pedido e o entrega ao barista.
+
+No entanto, suponha que uma pessoa esteja telefonando várias vezes para fazer pedidos, mas nunca retira suas bebidas. Isso faz com que o operador de caixa fique indisponível para atender chamadas de outros clientes. A cafeteria pode tentar parar os pedidos falsos bloqueando o número de telefone que a pessoa está usando.
+
+Nesse cenário, as ações da pessoa passando o trote são semelhantes a um ataque de negação de serviço.
+
+Um ataque de negação de serviço (DoS) é uma tentativa deliberada de tornar um site ou aplicativo indisponível para os usuários.
+Por exemplo, um invasor pode inundar um site ou aplicativo com tráfego excessivo de rede até que o site ou o aplicativo de destino se sobrecarregue e não seja mais capaz de responder. Se o site ou aplicativo ficar indisponível, o serviço será negado aos usuários tentando fazer solicitações legítimas.
+
+#### Ataques distribuídos de negação de serviço
+
+Agora, suponha que a pessoa passando o trote tenha recrutado a ajuda de amigos.
+
+Essa pessoa e seus amigos telefonam repetidamente para a cafeteria para fazer pedidos, mesmo que não pretendam retirá-los. Esses pedidos são provenientes de números de telefone diferentes e é impossível que a cafeteria bloqueie todos eles. Além disso, o influxo de chamadas dificultou cada vez mais o atendimento aos clientes. Isso se parece com um ataque distribuído de negação de serviço.
+
+Em um ataque distribuído de negação de serviço (DDoS), várias fontes são usadas para iniciar um ataque que visa tornar um site ou aplicativo indisponível. O ataque pode ser feito por um grupo de invasores, ou até mesmo um único invasor. O único invasor pode usar vários computadores infectados (também conhecidos como “bots”) para enviar tráfego excessivo a um site ou aplicativo.
+
+Para ajudar a minimizar o efeito de ataques DoS e DDoS em seus aplicativos, você pode usar o AWS Shield.
+
+#### AWS Shield
+
+O AWS Shield é um serviço que protege aplicativos contra ataques DDoS. O AWS Shield oferece dois níveis de proteção: Standard e Advanced.
+
+##### AWS Shield Standard
+
+O AWS Shield Standard protege automaticamente todos os clientes AWS sem nenhum custo. Ele protege seus recursos AWS contra os tipos de ataques DDoS mais comuns e frequentes.
+
+À medida que o tráfego de rede ingressa em seus aplicativos, o AWS Shield Standard usa diversas técnicas de análise para detectar tráfego mal-intencionado em tempo real e mitigá-lo automaticamente. O AWS Shield Standard também monitora continuamente o tráfego de rede para detectar novos ataques e reagir rapidamente para proteger seus aplicativos.
+
+##### AWS Shield Advanced
+
+O AWS Shield Advanced é um serviço pago que fornece diagnósticos detalhados de ataques e a capacidade de detectar e mitigar ataques elaborados de DDoS.
+
+Ele também se integra a outros serviços, como o Amazon CloudFront, o Amazon Route 53 e o Elastic Load Balancing. Além disso, você pode integrar o AWS Shield ao AWS WAF escrevendo regras personalizadas para mitigar ataques complexos de DDoS.
+
+### Serviços de Segurança Adicionais
+
+#### AWS Key Management Service (AWS KMS)
+
+A cafeteria tem muitos itens, como máquinas de café, confeitaria, dinheiro nas caixas registradoras e assim por diante. Você pode pensar nesses itens como dados. Os proprietários da cafeteria querem garantir que todos esses itens estejam protegidos, independentemente de estarem dispostos na sala de armazenamento ou em transporte.
+
+Da mesma forma, você deve garantir que os dados de seus aplicativos estejam protegidos durante o armazenamento (criptografia em repouso) e sendo transmitidos (criptografia em trânsito).
+
+O AWS Key Management Service (AWS KMS) permite que você execute operações de criptografia pelo uso de chaves de criptografia. Uma chave de criptografia é uma cadeia aleatória de dígitos usada para bloquear (criptografar) e desbloquear (descriptografar) dados. Você pode usar o AWS KMS para criar, gerenciar e usar chaves de criptografia. Você também pode controlar o uso de chaves em uma ampla gama de serviços e em seus aplicativos.
+
+Com o AWS KMS, você pode escolher os níveis específicos de controle de acesso necessários para suas chaves. Por exemplo, você pode especificar quais usuários e funções do IAM podem gerenciar chaves. Do mesmo modo, você pode desativar temporariamente as chaves para que não sejam mais usadas. Suas chaves nunca saem do AWS KMS e você está sempre no controle delas.
+
+#### AWS WAF
+
+O AWS WAF é um firewall de aplicativo web que permite monitorar solicitações de rede que entram em seus aplicativos web.
+
+O AWS WAF trabalha em conjunto com o Amazon CloudFront e um balanceador de carga de aplicativo. Lembre-se das listas de controle de acesso de rede que você aprendeu em um módulo anterior. O AWS WAF funciona de forma semelhante para bloquear ou permitir o tráfego. No entanto, ele faz isso usando uma lista de controle de acesso (ACL) da web para proteger seus recursos AWS.
+
+Suponha que o aplicativo tenha recebido solicitações de rede mal-intencionadas de vários endereços IP. Você quer impedir que essas solicitações continuem a acessar seu aplicativo, mas também deseja garantir que usuários legítimos ainda possam acessá-lo. Você configura a ACL da web para permitir todas as solicitações, exceto aquelas dos endereços IP que você especificou.
+
+Quando uma solicitação entra no AWS WAF, ele confere a lista de regras configurada na ACL da web. Se uma solicitação não for proveniente de um dos endereços IP bloqueados, o AWS WAF permite o acesso ao aplicativo.
+
+No entanto, se uma solicitação for proveniente de um dos endereços IP bloqueados que você especificou na ACL da web, o acesso é negado.
+
+#### Amazon Inspector
+
+Suponha que os desenvolvedores da cafeteria estão desenvolvendo e testando um novo aplicativo para pedidos. Eles querem se certificar de que estão projetando o aplicativo de acordo com as práticas recomendadas de segurança. Contudo, eles têm vários outros aplicativos para desenvolver, por isso, não podem passar tempo demais fazendo avaliações manuais. Para fazer avaliações de segurança automatizadas, eles decidem usar o Amazon Inspector.
+
+O Amazon Inspector ajuda a melhorar a segurança e a conformidade dos aplicativos executando avaliações de segurança automatizadas. Ele verifica os aplicativos quanto a vulnerabilidades de segurança e desvios das práticas recomendadas de segurança, como acesso aberto a instâncias do Amazon EC2 e instalações de versões de software vulneráveis.
+
+Depois que o Amazon Inspector faz uma avaliação, ele fornece uma lista de descobertas de segurança. A lista prioriza por nível de gravidade, com uma descrição detalhada de cada problema de segurança e uma recomendação sobre como corrigi-lo. Contudo, a AWS não garante que seguir as recomendações feitas resolverá todos os possíveis problemas de segurança. Sob o modelo de responsabilidade compartilhada, os clientes são responsáveis pela segurança de ferramentas, aplicativos e processos executados nos serviços AWS.
+
+#### Amazon GuardDuty
+
+O Amazon GuardDuty é um serviço que fornece detecção inteligente de ameaças para sua infraestrutura e seus recursos AWS. Ele identifica ameaças monitorando continuamente a atividade da rede e o comportamento da conta no seu ambiente AWS.
+
+Depois de habilitar o GuardDuty para sua conta AWS, ele começa a monitorar sua atividade de rede e conta. Você não precisa implantar ou gerenciar nenhum outro software de segurança. O GuardDuty analisa continuamente dados de várias fontes da AWS, incluindo logs de fluxo de VPC e logs de DNS.
+
+Se ele detectar ameaças, você poderá revisar as descobertas detalhadas no AWS Management Console. As descobertas incluem etapas recomendadas para a correção. Você também pode configurar as funções do AWS Lambda para executar as etapas de correção automaticamente em resposta às descobertas de segurança do GuardDuty.
