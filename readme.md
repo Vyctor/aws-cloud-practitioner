@@ -157,6 +157,19 @@
       - [Aplicativos sem servidor](#aplicativos-sem-servidor)
       - [Inteligencia Artificial](#inteligencia-artificial)
       - [Machine Learning](#machine-learning)
+  - [AWS Well-Architected Framework](#aws-well-architected-framework)
+    - [Excelência operacional](#excelência-operacional)
+    - [Segurança](#segurança-1)
+    - [Confiabilidade](#confiabilidade)
+    - [Eficiência de desempenho](#eficiência-de-desempenho)
+    - [Otimização de custos](#otimização-de-custos)
+  - [Benefícios da Nuvem da AWS](#benefícios-da-nuvem-da-aws)
+    - [Troque despesa antecipada por despesas variáveis](#troque-despesa-antecipada-por-despesas-variáveis)
+    - [Benefícios de enormes economias de escala](#benefícios-de-enormes-economias-de-escala)
+    - [Parar de tentar adivinhar a capacidade](#parar-de-tentar-adivinhar-a-capacidade)
+    - [Aumentar a velocidade e a agilidade](#aumentar-a-velocidade-e-a-agilidade)
+    - [Parar de gastar dinheiro com execução e manutenção de data centers](#parar-de-gastar-dinheiro-com-execução-e-manutenção-de-data-centers)
+    - [Ter alcance global em minutos](#ter-alcance-global-em-minutos)
 
 A AWS é uma plataforma de serviços em nuvem que oferece poder computacional, armazenamento de banco de dados, entrega de conteúdo e outras funcionalidades para ajudar as empresas a expandir e crescer.
 
@@ -1423,3 +1436,92 @@ Por exemplo, você pode executar as seguintes tarefas:
 O desenvolvimento tradicional de machine learning (ML) é complexo, caro, demorado e propenso a erros. A AWS oferece o Amazon SageMaker, que remove o trabalho difícil do processo e ajuda você a criar, treinar e implantar modelos de ML rapidamente.
 
 Você pode usar ML para analisar dados, resolver problemas complexos e prever resultados antes que eles aconteçam.
+
+## AWS Well-Architected Framework
+
+O AWS Well-Architected Framework ajuda você a entender como projetar e operar sistemas confiáveis, seguros, eficientes e econômicos na nuvem AWS. Com ele, é possível avaliar de forma consistente suas arquiteturas em relação às melhores práticas e aos princípios de projeto e a identificar áreas para melhorias.
+
+O Well-Architected Framework se baseia em cinco pilares:
+
+### Excelência operacional
+
+é a capacidade de executar e monitorar sistemas para entregar valor comercial e melhorar continuamente os processos e procedimentos de apoio.
+
+Os princípios de design para a excelência operacional na nuvem incluem executar operações como código, anotar documentação, antecipar falhas e fazer frequentemente alterações pequenas e reversíveis.
+
+### Segurança
+
+O pilar de segurança inclui a capacidade de proteger informações, sistemas e ativos e, ao mesmo tempo, entregar valor comercial por meio de avaliações de risco e estratégias de mitigação.
+
+Ao considerar a segurança de sua arquitetura, aplique estas melhores práticas:
+
+- Automatize as melhores práticas de segurança quando possível.
+- Aplique segurança em todas as camadas.
+- Proteja os dados em trânsito e em repouso.
+
+### Confiabilidade
+
+Confiabilidade é a capacidade de um sistema fazer o seguinte:
+
+- Recuperar-se de interrupções na infraestrutura ou no serviço
+- Adquirir dinamicamente recursos de computação para atender à demanda
+- Reduzir interrupções, como configurações incorretas ou problemas de rede transitórios
+
+A confiabilidade inclui testes de procedimentos de recuperação, scaling horizontal para aumentar a disponibilidade agregada do sistema e recuperação automática de falhas.
+
+### Eficiência de desempenho
+
+A eficiência de desempenho é a capacidade de usar recursos computacionais com eficiência para cumprir requisitos do sistema e manter essa eficiência à medida que a demanda muda e as tecnologias evoluem.
+
+A avaliação da eficiência de desempenho de sua arquitetura inclui experimentar com mais frequência, usar arquiteturas sem servidor e projetar sistemas para ter alcance global em minutos.
+
+### Otimização de custos
+
+Otimização de custos é a capacidade de executar sistemas para entregar valor comercial com o menor preço.
+
+A otimização de custos inclui a adoção de um modelo de consumo, análise e atribuição de despesas e uso de serviços gerenciados para reduzir o custo de propriedade.
+
+## Benefícios da Nuvem da AWS
+
+Operar na nuvem AWS oferece muitos benefícios em relação à computação em ambientes locais ou híbridos.
+
+Nesta seção, você aprenderá sobre seis vantagens da computação em nuvem:
+
+- Trocar despesa antecipada por despesas variáveis.
+- Benefícios de enormes economias de escala.
+- Parar de tentar adivinhar a capacidade.
+- Aumentar a velocidade e a agilidade.
+- Parar de gastar dinheiro com execução e manutenção de data centers.
+- Ter alcance global em minutos.
+
+### Troque despesa antecipada por despesas variáveis
+
+Despesas iniciais são data centers, servidores físicos e outros recursos nos quais você precisaria investir antes de usá-los.
+
+Em vez de investir substancialmente em datacenters e servidores antes de saber como serão usados, você pode pagar somente ao consumir recursos de computação.
+
+### Benefícios de enormes economias de escala
+
+Com a computação em nuvem, é possível obter um custo variável inferior ao do seu ambiente local. Como o uso por centenas de milhares de clientes se acumula na nuvem, provedores como a AWS podem alcançar economias de escala maiores. As economias de escala se transformam em preços para pagamento conforme o uso mais baixos.
+
+### Parar de tentar adivinhar a capacidade
+
+Com a computação em nuvem, você não precisa prever a capacidade de infraestrutura necessária antes de implantar um aplicativo.
+
+Por exemplo, você pode iniciar instâncias do Amazon Elastic Compute Cloud (Amazon EC2) quando necessário e pagar apenas pelo tempo de computação usado. Em vez de pagar por recursos que não são utilizados ou lidar com capacidade limitada, você pode acessar somente a capacidade de que precisa e aumentar ou reduzir a quantidade em resposta à demanda.
+
+### Aumentar a velocidade e a agilidade
+
+A flexibilidade da computação em nuvem facilita o desenvolvimento e a implantação de aplicativos.
+
+Essa flexibilidade também oferece às suas equipes de desenvolvimento mais tempo para experimentar e inovar.
+
+### Parar de gastar dinheiro com execução e manutenção de data centers
+
+A computação em nuvem em data centers geralmente exige que você gaste mais dinheiro e tempo gerenciando infraestrutura e servidores.
+
+Um benefício da computação em nuvem é poder se concentrar menos nessas tarefas e mais em seus aplicativos e clientes.
+
+### Ter alcance global em minutos
+
+O espaço global da nuvem AWS para implantação rápida de aplicativos para clientes em todo o mundo, ao mesmo tempo em que oferece baixa latência.
