@@ -105,6 +105,13 @@
       - [AWS WAF](#aws-waf)
       - [Amazon Inspector](#amazon-inspector)
       - [Amazon GuardDuty](#amazon-guardduty)
+  - [Monitoramento e análise](#monitoramento-e-análise)
+    - [Amazon CLoudWatch](#amazon-cloudwatch)
+      - [Alarmes do CloudWatch](#alarmes-do-cloudwatch)
+      - [Painel do CloudWatch](#painel-do-cloudwatch)
+    - [AWS CloudTrail](#aws-cloudtrail)
+    - [AWS Trusted Advisor](#aws-trusted-advisor)
+      - [Painel do AWS Trusted Advisor](#painel-do-aws-trusted-advisor)
 
 A AWS é uma plataforma de serviços em nuvem que oferece poder computacional, armazenamento de banco de dados, entrega de conteúdo e outras funcionalidades para ajudar as empresas a expandir e crescer.
 
@@ -940,3 +947,56 @@ O Amazon GuardDuty é um serviço que fornece detecção inteligente de ameaças
 Depois de habilitar o GuardDuty para sua conta AWS, ele começa a monitorar sua atividade de rede e conta. Você não precisa implantar ou gerenciar nenhum outro software de segurança. O GuardDuty analisa continuamente dados de várias fontes da AWS, incluindo logs de fluxo de VPC e logs de DNS.
 
 Se ele detectar ameaças, você poderá revisar as descobertas detalhadas no AWS Management Console. As descobertas incluem etapas recomendadas para a correção. Você também pode configurar as funções do AWS Lambda para executar as etapas de correção automaticamente em resposta às descobertas de segurança do GuardDuty.
+
+## Monitoramento e análise
+
+Neste módulo, você aprenderá a:
+
+- Resumir abordagens para monitorar seu ambiente AWS.
+- Descrever os benefícios do Amazon CloudWatch.
+- Descrever os benefícios do AWS CloudTrail.
+- Descrever os benefícios do AWS Trusted Advisor.
+
+### Amazon CLoudWatch
+
+O Amazon CloudWatch é um serviço web que permite monitorar e gerenciar várias métricas e configurar ações de alarme de acordo com os dados dessas métricas.
+
+O CloudWatch usa métricas para representar os pontos de dados para seus recursos. Os serviços AWS enviam as métricas ao CloudWatch. Em seguida, o CloudWatch usa essas métricas para criar automaticamente gráficos que mostram como o desempenho mudou ao longo do tempo.
+
+#### Alarmes do CloudWatch
+
+Com o CloudWatch, você pode criar alarmes que executam ações automaticamente se o valor da métrica ultrapassar ou for inferior a um limite predefinido.
+
+Por exemplo, suponha que os desenvolvedores da sua empresa usem instâncias do Amazon EC2 para fins de desenvolvimento ou teste de aplicativos. Se os desenvolvedores ocasionalmente se esquecerem de interromper as instâncias, as instâncias continuarão a ser executadas e incorrerão em cobranças.
+
+Nesse cenário, você pode criar um alarme do CloudWatch que interrompe automaticamente uma instância do Amazon EC2 quando a porcentagem de utilização da CPU permanecer abaixo de um determinado limite por um período específico. Ao configurar o alarme, você pode especificar se deseja receber uma notificação sempre que esse alarme for acionado.
+
+#### Painel do CloudWatch
+
+O recurso de painel do CloudWatch permite que você acesse todas as métricas de seus recursos em um único local. Por exemplo, você pode usar um painel do CloudWatch para monitorar a utilização da CPU de uma instância do Amazon EC2, o número total de solicitações feitas para um bucket do Amazon S3 e muito mais. Você pode até personalizar painéis separados para diferentes fins comerciais, aplicativos ou recursos.
+
+### AWS CloudTrail
+
+O AWS CloudTrail registra as chamadas de API realizadas na sua conta. As informações gravadas são identidade do chamador da API, hora da chamada da API, endereço IP de origem do chamador da API e muito mais. Você pode pensar no CloudTrail como uma “trilha” de migalhas de pão (ou um log de ações) que alguém deixou para trás.
+
+Lembre-se de que você pode usar chamadas de API para provisionar, gerenciar e configurar seus recursos AWS. Com o CloudTrail, você pode visualizar um histórico completo de atividades do usuário e chamadas de API de seus aplicativos e recursos.
+
+Normalmente, os eventos são atualizados no CloudTrail dentro de 15 minutos após uma chamada de API. Você pode filtrar eventos especificando a hora e a data em que uma chamada de API ocorreu, o usuário que solicitou a ação, o tipo de recurso envolvido na chamada de API e muito mais.
+
+### AWS Trusted Advisor
+
+O AWS Trusted Advisor é um serviço web que inspeciona seu ambiente AWS e faz recomendações em tempo real de acordo com as práticas recomendadas da AWS.
+
+O Trusted Advisor compara suas descobertas com as práticas recomendadas da AWS em cinco categorias: otimização de custos, desempenho, segurança, tolerância a falhas e limites de serviço. Para as verificações em cada categoria, o Trusted Advisor oferece uma lista de ações recomendadas e recursos adicionais para saber mais sobre as práticas recomendadas da AWS.
+
+As orientações feitas pelo AWS Trusted Advisor podem beneficiar sua empresa em todos os estágios da implantação. Por exemplo, você pode usar o AWS Trusted Advisor para ajudar enquanto cria novos fluxos de trabalho e desenvolve novos aplicativos. Ou você pode usá-lo enquanto faz melhorias contínuas em aplicativos e recursos existentes.
+
+#### Painel do AWS Trusted Advisor
+
+Ao acessar o painel do Trusted Advisor no AWS Management Console, você pode revisar verificações concluídas para otimização de custos, desempenho, segurança, tolerância a falhas e limites de serviço.
+
+Para cada categoria:
+
+- A marca de verificação verde indica o número de itens para os quais não foram detectados problemas.
+- O triângulo laranja representa o número de investigações recomendadas.
+- O círculo vermelho representa o número de ações recomendadas.
